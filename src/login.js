@@ -8,13 +8,14 @@ export class Login {
   constructor(state, router) {
     this.state    = state;
     this.router   = router;
-    this.username = Cookie.get("username");
-    this.message  = "";
+    this.username = Cookie.get("username") || "";
+    this.password = "dontforget99";
+    // this.password = "";
   }
 
   login() {
     var state = this.state;
-    var sadCb = () => this.message = "Nope.";
+    var sadCb = () => this.flashMsg("Nope.");
 
     this.username = this.username.trim();
     this.password = this.password.trim();
@@ -26,14 +27,22 @@ export class Login {
         console.log('stuff', stuff);
         state.shows = stuff.shows;
         state.user  = stuff.user;
-        if (stuff.shows.length === 1) {
-          this.router.navigate("show", {show: state.shows[0].slug});
+        console.log('ok, its', state.shows, state.shows[0].slug);
+        if (state.shows.length === 1) {
+          this.router.navigateToRoute("show", {show: state.shows[0].slug});
         } else {
-          this.router.navigate("shows");
+          this.router.navigateToRoute("shows");
         }
       });
     };
 
     state.login(this.username, this.password, happyCb, sadCb);
+  }
+
+  flashMsg(msg) {
+    this.message = msg;
+    setTimeout(() => {
+      this.message = "";
+    }.bind(this), 5000);
   }
 }

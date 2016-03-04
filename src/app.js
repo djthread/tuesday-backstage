@@ -1,3 +1,7 @@
+// import {State} from "./state";
+// import {inject} from "aurelia-framework";
+//
+// @inject(State)
 export class App {
 
   configureRouter(config, router) {
@@ -15,4 +19,12 @@ export class App {
       },
     ]);
   }
+
+  // activate() {
+  //   return new Promise((accept, reject) => {
+  //     this.state.startup(() => {
+  //       accept()
+  //     });
+  //   }.bind(this));
+  // }
 }
