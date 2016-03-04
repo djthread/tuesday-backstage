@@ -1,5 +1,4 @@
 <template>
-  <p>${message}</p>
   <form role="form" submit.delegate="login()">
     <input type="text" class="form-control"
       placeholder="name" value.bind="username">
@@ -7,4 +6,5 @@
       placeholder="password" value.bind="password">
     <input type="submit">
   </form>
+  <p>${message}</p>
 </template>
