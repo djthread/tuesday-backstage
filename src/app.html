@@ -1,9 +1,9 @@
 <template>
   <div class="main">
-    <h1>Thump Detroit</h1>
+    <h1>Impulse Detroit</h1>
 
     <div class="section-secondary">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav" if.bind="state.channel">
         <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
           <a href.bind="row.href">${row.title}</a>
         </li>
@@ -13,7 +13,6 @@
           <i class="fa fa-spinner fa-spin fa-2x"></i>
         </li>
       </ul>
-      <p class="clearer tabsplit">&nbsp;</p>
       <router-view></router-view>
     </div>
 
@@ -21,9 +20,8 @@
 
   <div class="clearer">&nbsp;</div>
   <footer>
-    Buckets of awesome
+    <button click.trigger="showState()">Show State</button>
     <div class="clearer">&nbsp;</div>
   </footer>
 
-</div>
 </template>

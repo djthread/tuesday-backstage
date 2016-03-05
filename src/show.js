@@ -5,7 +5,8 @@ import {State} from "./state";
 export class Show {
 
   constructor(state) {
-    this.state = state;
+    this.state             = state;
+    this.createEpisodeHref = null;
   }
 
   configureRouter(config, router) {
@@ -13,23 +14,31 @@ export class Show {
 
     config.map([
       {
-        route:    ["", "podcast"],
-        name:     "podcast",
-        title:    "Podcast",
-        moduleId: "./podcast",
+        route:    ["", "episodes"],
+        name:     "episodes",
+        title:    "Podcast Episodes",
+        moduleId: "./show/episodes",
         nav:      true
       },
       {
-        route:    ["info"],
+        route:    "info",
         name:     "info",
         title:    "Info",
-        moduleId: "./info",
+        moduleId: "./show/info",
         nav:      true
+      },
+      {
+        route:    "episodes/create",
+        name:     "createEpisode",
+        title:    "Create Episode",
+        moduleId: "./show/episode"
       }
     ]);
   }
 
   activate(params, navigationInstruction) {
-    this.state.current.showslug = navigationInstruction.name;
+    this.state.navigatingToShowSlug(navigationInstruction.name);
+
+    this.createEpisodeRoute = this.router.generate("createEpisode");
   }
 }

@@ -10,18 +10,26 @@ export class Shows {
   //   this.state  = state;
   //   this.router = router;
   constructor(state) {
-    this.state  = state;
+    this.state = state;
 
     if (this.state.shows.length === 0) {
       alert("You has no shows");
-      this.router.navigate("login");
+      this.state.bail();
     }
   }
 
   configureRouter(config, router) {
     this.router = router;
 
-    config.map(this.state.shows.map((show) => {
+    var defaultRoute = {
+      route:    "",
+      name:     "list",
+      title:    "Shows",
+      moduleId: "./shows/list",
+      nav:      false
+    };
+
+    config.map([defaultRoute].concat(this.state.shows.map((show) => {
       return {
         route:    show.slug,
         name:     show.slug,
@@ -29,6 +37,6 @@ export class Shows {
         moduleId: "./show",
         nav:      true
       };
-    }));
+    })));
   }
 }
