@@ -1,5 +1,5 @@
 <template>
-  <ul class="nav show-nav">
+  <ul class="nav navbar-nav">
     <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
       <a href.bind="row.href" class="${row.config.name}">${row.title}</a>
     </li>

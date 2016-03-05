@@ -1,16 +1,21 @@
 import {Socket, LongPoller} from "phoenix.js";
 import {inject} from "aurelia-framework";
 import {Configure} from "aurelia-configuration";
+import {Router} from "aurelia-router";
 
-@inject(Configure)
+// @inject(State, Router)
+
+@inject(Configure, Router)
 export class State {
-  constructor(config) {
+  constructor(config, router) {
+    this.router    = router
     this.socketUri = config.get("socket.endpoint");
-    this.shows     = [];
     this.user      = null;
     this.socket    = null;
     this.channel   = null;
     this.socket    = this.startSocket();
+    this.shows     = [];
+    this.showId    = null;
   }
 
   // join(channel, args, happyCb) {
@@ -23,6 +28,8 @@ export class State {
   // }
 
   push(message, args, happyCb) {
+    console.log('okkkkkkkkkkkk', args, this.channel);
+    if (!this.channel) return this.bail("Whoa no channel!");
     this.channel.push(message, args, 10000)
       .receive("ok", happyCb)
       .receive("error", (reasons) => console.log("Show list failed:", reasons))
@@ -57,5 +64,40 @@ export class State {
 
     this.channel.onError(e => console.log("something went wrong", e));
     this.channel.onClose(e => console.log("channel closed", e));
+  }
+
+  getShow(cb) {
+    this.push("show", {id: this.showId}, (info) => {
+      if (!info) return this.bail("Bad tings");
+      this.episodes = info.episodes;
+      cb();
+    });
+  }
+
+  show() {
+    this.shows.forEach((show) => {
+      if (this.showId === show.id) {
+        return show;
+      }
+    });
+    return null;
+ }
+
+  navigatingToShowSlug(slug) {
+    this.shows.forEach((show) => {
+      if (show.slug === slug) {
+        this.showId = show.id;
+      }
+    });
+  }
+
+  startOver() {
+    this.socket.disconnect();
+    this.router.navigate("login");
+  }
+
+  bail() {
+    console.log('right.');
+    this.router.navigate("login");
   }
 }

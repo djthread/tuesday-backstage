@@ -24,15 +24,16 @@ export class Login {
 
     var happyCb = () => {
       state.push("whoami", {}, (stuff) => {
-        console.log('stuff', stuff);
         state.shows = stuff.shows;
         state.user  = stuff.user;
-        console.log('ok, its', state.shows, state.shows[0].slug);
-        if (state.shows.length === 1) {
-          this.router.navigateToRoute("show", {show: state.shows[0].slug});
-        } else {
-          this.router.navigateToRoute("shows");
-        }
+        this.router.navigateToRoute("shows");
+        // if (state.shows.length === 1) {
+        //   state.shows  = state.shows;
+        //   state.showId = state.shows[0].id;
+        //   this.router.navigateToRoute("show", {show: state.shows[0].slug});
+        // } else {
+        //   this.router.navigateToRoute("shows");
+        // }
       });
     };
 
