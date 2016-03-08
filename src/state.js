@@ -3,8 +3,6 @@ import {inject} from "aurelia-framework";
 import {Configure} from "aurelia-configuration";
 import {Router} from "aurelia-router";
 
-// @inject(State, Router)
-
 @inject(Configure, Router)
 export class State {
   constructor(config, router) {
@@ -28,7 +26,6 @@ export class State {
   // }
 
   push(message, args, happyCb) {
-    console.log('okkkkkkkkkkkk', args, this.channel);
     if (!this.channel) return this.bail("Whoa no channel!");
     this.channel.push(message, args, 10000)
       .receive("ok", happyCb)
@@ -91,13 +88,8 @@ export class State {
     });
   }
 
-  startOver() {
-    this.socket.disconnect();
-    this.router.navigate("login");
-  }
-
-  bail() {
-    console.log('right.');
+  bail(msg) {
+    console.log(msg);
     this.router.navigate("login");
   }
 }

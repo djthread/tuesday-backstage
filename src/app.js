@@ -12,15 +12,18 @@ export class App {
     this.router = router;
 
     config.map([
-      { route:    ["", "login"], title: "Login",     name: "login",
-        moduleId: "./login",     nav:   false
+      { route:    ["", "/", "login"],
+        title:    "Login",
+        moduleId: "./login",
+        nav:      false,
+        name:     "login"
       },
-      { route:    "shows",       title: "Shows",     name: "shows",
-        moduleId: "./shows",     nav: false
-      },
-      { route:    "show/:show",  title: "Show",      name: "show",
-        moduleId: "./show",      nav: false,         href: ""
-      },
+      { route:    "shows",
+        title:    "Shows",
+        moduleId: "./shows",
+        nav:      false,
+        name:     "shows"
+      }
     ]);
   }
 

@@ -21,22 +21,40 @@ export class Shows {
   configureRouter(config, router) {
     this.router = router;
 
-    var defaultRoute = {
-      route:    "",
-      name:     "list",
-      title:    "Shows",
-      moduleId: "./shows/list",
-      nav:      false
-    };
-
-    config.map([defaultRoute].concat(this.state.shows.map((show) => {
-      return {
-        route:    show.slug,
-        name:     show.slug,
-        title:    show.name,
+    config.map([
+      { route:    ["", "/"],
+        name:     "list",
+        title:    "Shows",
+        moduleId: "./shows/list",
+        nav:      false
+      },
+      { route:    "/:slug",
+        name:     "show",
         moduleId: "./show",
-        nav:      true
-      };
-    })));
+        nav:      false
+      }
+    ]);
+  }
+
+
+    //   { route:    "show/:show",  title: "Show",
+    //     moduleId: "./show",      nav: false,
+    //     href:     "",
+    //     name: "show"
+    // }].concat(this.state.shows.map((show) => {
+    //   return {
+    //     route:    show.slug,
+    //     name:     show.slug,
+    //     title:    show.name,
+    //     moduleId: "./show",
+    //     nav:      true
+    //   };
+    // })));
+
+  activate(params, navigationInstruction) {
+    this.state.navigatingToShowSlug(
+      navigationInstruction.name);
+
+    console.log('OKK', navigationInstruction.name);
   }
 }

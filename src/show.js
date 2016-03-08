@@ -5,40 +5,31 @@ import {State} from "./state";
 export class Show {
 
   constructor(state) {
-    this.state             = state;
-    this.createEpisodeHref = null;
+    this.state = state;
   }
 
   configureRouter(config, router) {
     this.router = router;
 
     config.map([
-      {
-        route:    ["", "episodes"],
+      { route:    ["", "/"],
         name:     "episodes",
         title:    "Podcast Episodes",
         moduleId: "./show/episodes",
         nav:      true
       },
-      {
-        route:    "info",
+      { route:    "create-episode",
+        name:     "createEpisode",
+        title:    "Create Episode",
+        moduleId: "./show/episode",
+        nav:      false
+      },
+      { route:    "info",
         name:     "info",
         title:    "Info",
         moduleId: "./show/info",
         nav:      true
-      },
-      {
-        route:    "episodes/create",
-        name:     "createEpisode",
-        title:    "Create Episode",
-        moduleId: "./show/episode"
       }
     ]);
-  }
-
-  activate(params, navigationInstruction) {
-    this.state.navigatingToShowSlug(navigationInstruction.name);
-
-    this.createEpisodeRoute = this.router.generate("createEpisode");
   }
 }
