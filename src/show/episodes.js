@@ -1,43 +1,38 @@
 import {inject} from "aurelia-framework";
 import {State} from "../state";
-// import {Router} from "aurelia-router";
+import {Router} from "aurelia-router";
 
-// @inject(State, Router)
-@inject(State)
+@inject(State, Router)
 export class Episodes {
 
-  constructor(state) {
-    this.state = state;
+  constructor(state, router) {
+    this.state    = state;
+    this.router   = router;
+    this.episodes = [];
   }
 
-  // configureRouter(config, router) {
-  //   this.router = router;
-  //
-  //   config.map([
-  //     // {
-  //     //   route:    "",
-  //     //   name:     "uhm",
-  //     //   title:    "K",
-  //     //   moduleId: "./show/info",
-  //     //   nav:      true
-  //     // },
-  //     {
-  //       route:    ["","create"],
-  //       name:     "createEpisode",
-  //       title:    "Create Episode",
-  //       moduleId: "./episode",
-  //       nav:      true
-  //     }
-  //   ]);
-  // }
+  configureRouter(config, router) {
+    this.router = router;
 
-  activate() {
-    console.log('ACTIVATE>EEE');
-    // console.log('show', );
-    // return new Promise((accept, reject) => {
-    //   this.state.getShow(() => {
-    //     accept()
-    //   });
-    // }.bind(this));
+    config.map([
+      { route:    ["", "/"],
+        name:     "episodes",
+        title:    "Podcast Episodes",
+        moduleId: "./list",
+        nav:      true
+      },
+      // { route:    ["","create"],
+      //   name:     "createEpisode",
+      //   title:    "Create Episode",
+      //   moduleId: "./episode",
+      //   nav:      true
+      // },
+      { route:    "/:num",
+        name:     "episode",
+        title:    "Episode",
+        moduleId: "./episode",
+        nav:      false
+      }
+    ]);
   }
 }

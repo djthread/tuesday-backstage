@@ -1,16 +1,15 @@
 <template>
   <div class="main">
-    <h1>Impulse Detroit</h1>
+    <h1>Impulse Detroit
+      <span class="loader" if.bind="router.isNavigating || state.isRequesting">
+        <i class="fa fa-spinner fa-spin fa-2x"></i>
+      </span>
+    </h1>
 
     <div class="section-secondary">
       <ul class="nav navbar-nav" if.bind="state.channel">
         <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
           <a href.bind="row.href">${row.title}</a>
-        </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="loader" if.bind="router.isNavigating">
-          <i class="fa fa-spinner fa-spin fa-2x"></i>
         </li>
       </ul>
       <router-view></router-view>

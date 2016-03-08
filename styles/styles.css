@@ -1,6 +1,7 @@
 * { box-sizing: border-box; }
 
 .splash { margin: 1em; }
+.loader { font-size: 25%; }
 
 html, body { height: 100%; }
 
