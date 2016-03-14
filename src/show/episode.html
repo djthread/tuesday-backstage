@@ -1,13 +1,27 @@
 <template>
-  oshit
-  <!--
+  <h2>Episode</h2>
   <form role="form" submit.delegate="submit()">
-    <input type="text" class="form-control"
-      placeholder="name" value.bind="username">
-    <input type="password" class="form-control"
-      placeholder="password" value.bind="password">
+    <div>
+      <input type="text" class="form-control"
+        placeholder="number" value.bind="ep.number">
+    </div>
+    <div>
+      <input type="text" class="form-control"
+        placeholder="title" value.bind="ep.title">
+    </div>
+    <div>
+      <input type="text" class="form-control"
+        placeholder="record date" value.bind="ep.record_date">
+    </div>
+    <div>
+      <input type="text" class="form-control"
+        placeholder="filename" value.bind="ep.filename">
+    </div>
+    <div>
+      <textarea class="form-control"
+        placeholder="description" value.bind="ep.description">
+      </textarea>
+    </div>
     <input type="submit">
   </form>
-  <p>${message}</p>
-  -->
 </template>

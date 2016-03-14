@@ -1,4 +1,4 @@
-export class Episode {
+export class Ep {
   number = "";
   title = "";
   record_date = "";

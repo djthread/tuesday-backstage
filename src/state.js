@@ -72,12 +72,13 @@ export class State {
   }
 
   show() {
-    this.shows.forEach((show) => {
-      if (this.showId === show.id) {
-        return show;
+    var show = null;
+    this.shows.forEach((s) => {
+      if (this.showId === s.id) {
+        show = s;
       }
     });
-    return null;
+    return show;
  }
 
   navigatingToShowSlug(slug) {

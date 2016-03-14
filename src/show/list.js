@@ -12,12 +12,12 @@ export class List {
     console.log('ACTIVATE>EEE');
 
     return new Promise((accept, reject) => {
-      console.log('going....');
+      console.log('going....', this.state.show());
       this.state.push(
-        "episodes", {show_id: this.state.show().id},
-        (episodes) => {
-          console.log('done!');
-          this.episodes = episodes;
+        "show", {id: this.state.show().id},
+        (show) => {
+          this.episodes = show.episodes;
+          console.log('done!', this.episodes);
           accept();
         }
       );
