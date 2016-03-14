@@ -32,4 +32,8 @@ export class Show {
       }
     ]);
   }
+
+  activate(params, navigationInstruction) {
+    this.state.navigatingToShowSlug(params.slug);
+  }
 }

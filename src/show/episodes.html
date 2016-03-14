@@ -1,6 +1,6 @@
 <template>
   <ul class="nav navbar-nav">
-    <li repeat.for="ep in episodes" class="${row.isActive ? 'active' : ''}">
+    <li repeat.for="ep of episodes" class="${row.isActive ? 'active' : ''}">
       <a href.bind="row.href" class="${row.config.name}">${row.title}</a>
     </li>
   </ul>

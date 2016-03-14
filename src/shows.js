@@ -50,11 +50,4 @@ export class Shows {
     //     nav:      true
     //   };
     // })));
-
-  activate(params, navigationInstruction) {
-    this.state.navigatingToShowSlug(
-      navigationInstruction.name);
-
-    console.log('OKK', navigationInstruction.name);
-  }
 }
