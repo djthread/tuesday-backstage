@@ -1,6 +1,6 @@
 import {inject} from "aurelia-framework";
 import {State} from "../state";
-import {Ep} from "../models/episode";
+import {Ep} from "../models/ep";
 
 @inject(State)
 export class Episode {

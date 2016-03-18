@@ -16,6 +16,7 @@ export class List {
       this.state.push(
         "show", {id: this.state.show().id},
         (show) => {
+          console.log('SHOWWWW', show);
           this.episodes = show.episodes;
           console.log('done!', this.episodes);
           accept();
