@@ -18,6 +18,12 @@ export class Show {
         moduleId: "./show/episodes",
         nav:      true
       },
+      { route:    "episode/:num",
+        name:     "episode",
+        title:    "Edit Episode",
+        moduleId: "./show/episode",
+        nav:      false
+      },
       { route:    "create-episode",
         name:     "createEpisode",
         title:    "Create Episode",
@@ -33,7 +39,15 @@ export class Show {
     ]);
   }
 
-  activate(params, navigationInstruction) {
-    this.state.navigatingToShowSlug(params.slug);
+  activate(params) {
+    // this.state.navigatingToShowSlug(params.slug);
+
+    var id = this.state.idBySlug(params.slug);
+
+    return new Promise((accept, reject) => {
+      this.state.getShow(id, () => {
+        accept()
+      });
+    }.bind(this));
   }
 }

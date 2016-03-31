@@ -7,7 +7,6 @@ export class Episode {
 
   constructor(state) {
     this.state = state;
-    this.ep    = new Ep();
 
     // this.titleData = { name: 'title', prettyName: 'Title', maxLength: 50 };
     // this.authorData = { name: 'author', prettyName: 'Author', maxLength: 50 };
@@ -38,24 +37,24 @@ export class Episode {
   }
 
   activate(params) {
-    console.log("PARAMS", params);
-    if (params.id === "create") return;
-
-    return new Promise((accept, reject) => {
-      this.state.getShow(() => {
-        accept()
-      });
-    }.bind(this));
+    if (params.num) {
+      return new Promise((accept, reject) => {
+        var episode = this.state.episodeByNum(params.num);
+        if (!episode) return reject("Ep num ("+params.num+") doesn't exist!");
+        this.ep = new Ep(episode);
+        accept();
+      }.bind(this));
+    } else {
+      this.ep = new Ep({show_id: this.state.show.id});
+    }
   }
 
   submit() {
-    var args = {
-      episode: this.ep,
-      show_id: this.state.showId
-    };
+    var args = {episode: this.ep};
 
     this.state.push("save_episode", args, () => {
       alert('woop');
+      console.log(arguments);
     });
   }
 }

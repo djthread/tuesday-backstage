@@ -4,6 +4,7 @@ export class Ep {
   record_date = "";
   filename = "";
   description = "";
+  show_id = null;
 
   constructor(data) {
     if (!!data) {
@@ -17,6 +18,7 @@ export class Ep {
     this.record_date = data.record_date;
     this.filename    = data.filename;
     this.description = data.description;
+    this.show_id     = data.show_id;
     this.id          = data._id;
   }
 }
