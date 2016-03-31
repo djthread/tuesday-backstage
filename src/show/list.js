@@ -11,17 +11,17 @@ export class List {
   activate() {
     console.log('ACTIVATE>EEE');
 
-    return new Promise((accept, reject) => {
-      console.log('going....', this.state.show());
-      this.state.push(
-        "show", {id: this.state.show().id},
-        (show) => {
-          console.log('SHOWWWW', show);
-          this.episodes = show.episodes;
-          console.log('done!', this.episodes);
-          accept();
-        }
-      );
-    }.bind(this));
+    // return new Promise((accept, reject) => {
+    //   console.log('going....', this.state.show);
+    //   this.state.push(
+    //     "show", {id: this.state.show.id},
+    //     (result) => {
+    //       console.log('SHOWWWW', result);
+    //       this.episodes = result.show.episodes;
+    //       console.log('done!', this.episodes);
+    //       accept();
+    //     }
+    //   );
+    // }.bind(this));
   }
 }

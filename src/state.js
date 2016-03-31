@@ -13,7 +13,6 @@ export class State {
     this.channel   = null;
     this.socket    = this.startSocket();
     this.shows     = [];
-    this.showId    = null;
   }
 
   // join(channel, args, happyCb) {
@@ -26,11 +25,15 @@ export class State {
   // }
 
   push(message, args, happyCb) {
-    if (!this.channel) return this.bail("Whoa no channel!");
+    var fail = function(msg) {
+      happyCb();  // finish activating, but we're redirecting to login.
+      this.bail(msg);
+    }
+    if (!this.channel) return fail("Whoa no channel!");
     this.channel.push(message, args, 10000)
       .receive("ok", happyCb)
-      .receive("error", (reasons) => console.log("Show list failed:", reasons))
-      .receive("timeout", () => console.log("Networking issue..."));
+      .receive("error", (reasons) => fail("Show list failed:", reasons))
+      .receive("timeout", () => fail("Networking issue..."));
   }
 
   startSocket() {
@@ -63,31 +66,59 @@ export class State {
     this.channel.onClose(e => console.log("channel closed", e));
   }
 
-  getShow(cb) {
-    this.push("show", {id: this.showId}, (info) => {
-      if (!info) return this.bail("Bad tings");
-      this.episodes = info.episodes;
-      cb();
-    });
+  setUser(user) {
+    this.user = user;
   }
 
-  show() {
-    var show = null;
-    this.shows.forEach((s) => {
-      if (this.showId === s.id) {
-        show = s;
-      }
-    });
-    return show;
- }
+  setShows(shows) {
+    this.shows = shows;
+  }
 
-  navigatingToShowSlug(slug) {
+  getShow(id, cb) {
+    this.push("show", {id: id}, (info) => {
+      if (!info) return this.bail("Bad tings");
+      console.log('good tings', info);
+      this.show = info.show;
+      cb();
+    }.bind(this));
+  }
+
+  // show() {
+  //   var show = null;
+  //   this.shows.forEach((s) => {
+  //     if (this.showId === s.id) {
+  //       show = s;
+  //     }
+  //   });
+  //   return show;
+  // }
+
+  episodeByNum(num) {
+    var ep = null;
+    this.show.episodes.forEach((e) => {
+      if (e.num == num) {
+        ep = e;
+      }
+    }.bind(this));
+    return ep;
+  }
+
+  idBySlug(slug) {
+    var id = null;
     this.shows.forEach((show) => {
       if (show.slug === slug) {
-        this.showId = show.id;
+        id = show.id;
       }
-    });
+    }.bind(this));
+    return id;
   }
+  // navigatingToShowSlug(slug) {
+  //   this.shows.forEach((show) => {
+  //     if (show.slug === slug) {
+  //       this.show = show;
+  //     }
+  //   }.bind(this));
+  // }
 
   bail(msg) {
     console.log(msg);

@@ -24,8 +24,8 @@ export class Login {
 
     var happyCb = () => {
       state.push("whoami", {}, (stuff) => {
-        state.shows = stuff.shows;
-        state.user  = stuff.user;
+        state.setShows(stuff.shows);
+        state.setUser(stuff.user);
         this.router.navigateToRoute("shows");
         // if (state.shows.length === 1) {
         //   state.shows  = state.shows;

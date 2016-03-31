@@ -13,7 +13,6 @@ export class Shows {
     this.state = state;
 
     if (this.state.shows.length === 0) {
-      alert("You has no shows");
       this.state.bail();
     }
   }
