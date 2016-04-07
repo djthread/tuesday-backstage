@@ -25,9 +25,10 @@ export class State {
   // }
 
   push(message, args, happyCb) {
-    var fail = function(msg) {
+    var bail = this.bail,
+        fail = function(msg) {
       happyCb();  // finish activating, but we're redirecting to login.
-      this.bail(msg);
+      bail(msg);
     }
     if (!this.channel) return fail("Whoa no channel!");
     this.channel.push(message, args, 10000)

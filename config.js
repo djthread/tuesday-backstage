@@ -35,6 +35,8 @@ System.config({
     "fetch": "github:github/fetch@0.10.1",
     "font-awesome": "npm:font-awesome@4.5.0",
     "phoenix.js": "github:djthread/phoenix.js@1.1.4",
+    "prism": "github:PrismJS/prism@1.4.1",
+    "showdown": "github:showdownjs/showdown@1.3.0",
     "text": "github:systemjs/plugin-text@0.0.3",
     "github:aurelia/dependency-injection@0.9.2": {
       "aurelia-logging": "github:aurelia/logging@0.6.4",
