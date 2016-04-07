@@ -1,28 +1,38 @@
 <template>
+  <require from="../components/markdown"></require>
   <h2>Episode</h2>
-  <form role="form" submit.delegate="submit()">
-    <div>
-      <input type="text" class="form-control"
-        placeholder="number" value.bind="ep.number">
-    </div>
-    <div>
-      <input type="text" class="form-control"
-        placeholder="title" value.bind="ep.title">
-    </div>
-    <div>
-      <input type="text" class="form-control"
-        placeholder="record date" value.bind="ep.record_date">
-    </div>
-    <div>
-      <input type="text" class="form-control"
-        placeholder="filename" value.bind="ep.filename">
-    </div>
-    <div>
-      <textarea class="form-control"
-        placeholder="description" value.bind="ep.description">
-      </textarea>
-    </div>
-    <!-- <input type="hidden" value.bind="ep.show_id"> -->
-    <input type="submit">
-  </form>
+  <div class="left">
+    <form role="form" submit.delegate="submit()">
+      <div>
+        <input type="text" class="form-control"
+          placeholder="number" value.bind="ep.number">
+      </div>
+      <div>
+        <input type="text" class="form-control"
+          placeholder="title" value.bind="ep.title">
+      </div>
+      <div>
+        <input type="text" class="form-control"
+          placeholder="record date" value.bind="ep.record_date">
+      </div>
+      <div>
+        <input type="text" class="form-control"
+          placeholder="filename" value.bind="ep.filename">
+      </div>
+      <div>
+        <textarea class="form-control"
+          placeholder="description" value.bind="ep.description">
+        </textarea>
+      </div>
+      <!-- <input type="hidden" value.bind="ep.show_id"> -->
+      <input type="submit">
+    </form>
+  </div>
+  <div class="right">
+    <markdown>
+      # Header
+
+      This is rendered **markdown**.
+    </markdown>
+  </div>
 </template>

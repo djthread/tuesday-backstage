@@ -14,6 +14,9 @@ body {
 
 h1 { margin: 0.2em; }
 
+div.left { width: 30%; float: left; }
+div.right { width: 70%; float: right; }
+
 ul.navbar-nav { list-style-type: none; padding: 0; clear: both; margin: 0; }
 ul.navbar-nav li { width: 50%; padding: 5px; float: left; }
 ul.navbar-nav a { width: 100%; display: block; text-decoration: none;
