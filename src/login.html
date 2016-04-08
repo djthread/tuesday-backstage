@@ -1,10 +1,17 @@
 <template>
-  <form role="form" submit.delegate="login()">
-    <input type="text" class="form-control"
-      placeholder="name" value.bind="username">
-    <input type="password" class="form-control"
-      placeholder="password" value.bind="password">
-    <input type="submit">
-  </form>
-  <p>${message}</p>
+  <div class="loginform">
+    <form role="form" submit.delegate="login()">
+      <div>
+        <input type="text" class="form-control"
+          placeholder="name" value.bind="username">
+      </div>
+      <div>
+        <input type="password" class="form-control"
+          placeholder="password" value.bind="password">
+      </div>
+      <div>
+        <input type="submit">
+      </div>
+    </form>
+  </div>
 </template>

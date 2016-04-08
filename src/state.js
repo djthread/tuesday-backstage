@@ -13,6 +13,7 @@ export class State {
     this.channel   = null;
     this.socket    = this.startSocket();
     this.shows     = [];
+    this.flash     = "";
   }
 
   // join(channel, args, happyCb) {
@@ -24,16 +25,18 @@ export class State {
   //   return channel;
   // }
 
-  push(message, args, happyCb) {
-    var bail = this.bail,
-        fail = function(msg) {
-      happyCb();  // finish activating, but we're redirecting to login.
-      bail(msg);
+  push(message, args, happyCb, sadCb) {
+    var bail = this.bail;
+
+    if (!sadCb) {
+      sadCb = (reasons) => bail("Push ("+message+") fail:", reasons);
     }
-    if (!this.channel) return fail("Whoa no channel!");
+
+    console.log('ok, pushing', message, args);
+    if (!this.channel) return bail("Whoa no channel!");
     this.channel.push(message, args, 10000)
       .receive("ok", happyCb)
-      .receive("error", (reasons) => fail("Show list failed:", reasons))
+      .receive("error", sadCb)
       .receive("timeout", () => fail("Networking issue..."));
   }
 
@@ -78,7 +81,6 @@ export class State {
   getShow(id, cb) {
     this.push("show", {id: id}, (info) => {
       if (!info) return this.bail("Bad tings");
-      console.log('good tings', info);
       this.show = info.show;
       cb();
     }.bind(this));
@@ -97,7 +99,7 @@ export class State {
   episodeByNum(num) {
     var ep = null;
     this.show.episodes.forEach((e) => {
-      if (e.num == num) {
+      if (e.number == num) {
         ep = e;
       }
     }.bind(this));
@@ -121,8 +123,18 @@ export class State {
   //   }.bind(this));
   // }
 
-  bail(msg) {
-    console.log(msg);
+  bail(msg, extra) {
+    console.log("Bailing", msg, extra);
     this.router.navigate("login");
+    if (msg) {
+      this.flashMsg("Bailing: "+msg);
+    }
+  }
+
+  flashMsg(msg) {
+    this.flash = msg;
+    setTimeout(() => {
+      this.flash = "";
+    }.bind(this), 5000);
   }
 }

@@ -12,10 +12,20 @@ body {
   background: #222;
 }
 
+.flash { color: orange; }
+.error { margin: 0.2em 0 0.5em 0; font-size: small; color: #fcc; }
+
 h1 { margin: 0.2em; }
 
+form div { padding: 0.2em 0; }
+input, textarea { padding: 0.4em; background-color: #333;
+  border: 1px solid #444; color: #eee; width: 100%; }
+
+.loginform { width: 20em; margin: 0 auto; }
+/* .podcastform textarea { width: 100%; } */
+
 div.left { width: 30%; float: left; }
-div.right { width: 70%; float: right; }
+div.right { width: 70%; float: right; padding-left: 1em; }
 
 ul.navbar-nav { list-style-type: none; padding: 0; clear: both; margin: 0; }
 ul.navbar-nav li { width: 50%; padding: 5px; float: left; }
@@ -35,6 +45,7 @@ ul.eplist li div { margin-left: 3em; }
 ul.eplist li div.record-date span { color: #aaa; font-size: small; }
 
 footer { clear: both; padding: 20px 40px;
+    margin-top: 4em;
     border-top: 2px solid #333;
     background: rgba(0, 0, 0, .50); }
 footer .bit { float: left; }

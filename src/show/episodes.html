@@ -1,3 +1,4 @@
+<!--
 <template>
   <ul class="nav navbar-nav">
     <li repeat.for="ep of episodes" class="${row.isActive ? 'active' : ''}">
@@ -10,4 +11,26 @@
     </li>
   </ul>
   <router-view></router-view>
+</template>
+cat: list.html: No such file or directory
+-->
+<template>
+  <require from="../components/markdown"></require>
+  <ul class="eplist">
+    <li repeat.for="ep of state.show.episodes">
+      <div class="num">${ep.number}.</div>
+      <div class="title">
+        <a route-href="route: episode; params.bind: {num: ep.number}">${ep.title}</a>
+      </div>
+      <div class="record-date">
+        <span>${ep.record_date}</span>
+      </div>
+      <div class="description">
+        <markdown model="${ep.description}"></markdown>
+      </div>
+      <!-- <a route&#45;href="route: show; params.bind: {slug: show.slug}"> -->
+      <!--   ${show.name} -->
+      <!-- </a> -->
+    </li>
+  </ul>
 </template>

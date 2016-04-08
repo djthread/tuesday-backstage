@@ -14,8 +14,8 @@ export class Login {
   }
 
   login() {
-    var state = this.state;
-    var sadCb = () => this.flashMsg("Nope.");
+    var state = this.state,
+        sadCb = () => state.flashMsg("Nope.");
 
     this.username = this.username.trim();
     this.password = this.password.trim();
@@ -38,12 +38,5 @@ export class Login {
     };
 
     state.login(this.username, this.password, happyCb, sadCb);
-  }
-
-  flashMsg(msg) {
-    this.message = msg;
-    setTimeout(() => {
-      this.message = "";
-    }.bind(this), 5000);
   }
 }
