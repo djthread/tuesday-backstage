@@ -1,26 +1,38 @@
 <template>
   <require from="../components/markdown"></require>
-  <h2>Episode</h2>
-  <div class="left">
+  <h2>Episode ${ep.number}</h2>
+  <div class="left episodeform">
     <form role="form" submit.delegate="submit()">
       <div>
-        <input type="text" class="form-control"
+        <input type="text" class="form-control" style="width: 4em"
           placeholder="number" value.bind="ep.number">
+        <ul class="error" if.bind="errors.number">
+          <li repeat.for="err of errors.number">${err}</li>
+        </ul>
+      </div>
+      <div>
+        <input type="text" class="form-control" style="width: 12em"
+          placeholder="record date" value.bind="ep.record_date">
+        <ul class="error" if.bind="errors.record_date">
+          <li repeat.for="err of errors.record_date">${err}</li>
+        </ul>
       </div>
       <div>
         <input type="text" class="form-control"
           placeholder="title" value.bind="ep.title">
-      </div>
-      <div>
-        <input type="text" class="form-control"
-          placeholder="record date" value.bind="ep.record_date">
+        <ul class="error" if.bind="errors.title">
+          <li repeat.for="err of errors.title">${err}</li>
+        </ul>
       </div>
       <div>
         <input type="text" class="form-control"
           placeholder="filename" value.bind="ep.filename">
+        <ul class="error" if.bind="errors.filename">
+          <li repeat.for="err of errors.filename">${err}</li>
+        </ul>
       </div>
       <div>
-        <textarea class="form-control"
+        <textarea rows="12" class="form-control"
           placeholder="description" value.bind="ep.description">
         </textarea>
       </div>
@@ -29,10 +41,7 @@
     </form>
   </div>
   <div class="right">
-    <markdown>
-      # Header
-
-      This is rendered **markdown**.
-    </markdown>
+    <markdown model="${ep.description}"></markdown>
   </div>
+  <p class="clearer">&nbsp;</p>
 </template>

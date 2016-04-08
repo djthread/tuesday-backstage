@@ -19,6 +19,6 @@ export class Ep {
     this.filename    = data.filename;
     this.description = data.description;
     this.show_id     = data.show_id;
-    this.id          = data._id;
+    this.id          = data.id;
   }
 }

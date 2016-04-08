@@ -1,12 +1,17 @@
 import {inject} from "aurelia-framework";
+import {Router} from "aurelia-router";
 import {State} from "../state";
 import {Ep} from "../models/ep";
 
-@inject(State)
+// @inject(State, Router)
+
+@inject(State, Router)
 export class Episode {
 
-  constructor(state) {
-    this.state = state;
+  constructor(state, router) {
+    this.state  = state;
+    this.router = router;
+    this.errors = {};
 
     // this.titleData = { name: 'title', prettyName: 'Title', maxLength: 50 };
     // this.authorData = { name: 'author', prettyName: 'Author', maxLength: 50 };
@@ -42,6 +47,7 @@ export class Episode {
         var episode = this.state.episodeByNum(params.num);
         if (!episode) return reject("Ep num ("+params.num+") doesn't exist!");
         this.ep = new Ep(episode);
+        console.log('EPPP', this.ep);
         accept();
       }.bind(this));
     } else {
@@ -50,11 +56,25 @@ export class Episode {
   }
 
   submit() {
-    var args = {episode: this.ep};
+    var args  = {episode: this.ep},
+        state = this.state;
 
-    this.state.push("save_episode", args, () => {
-      alert('woop');
-      console.log(arguments);
-    });
+    state.push("save_episode", args, () => {
+      console.log("woop", arguments);
+      state.getShow(state.show.id, () => {
+        state.flashMsg("Episode saved!");
+        this.router.navigateToRoute("episodes");
+      });
+    }.bind(this), (ret) => {
+      this.errors = ret.errors;
+      console.log('uhh', arguments);
+      console.log('ERRORS', this.errors);
+    }.bind(this));
   }
 }
+//     }.bind(this), (a, b) => {
+//       console.log('SAD FACE', arguments, a, b);
+//       state.flashMsg("Sad face");
+//     }.bind(this));
+//   }
+// }
