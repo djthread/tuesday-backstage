@@ -11,8 +11,8 @@
         </ul>
       </div>
       <div>
-        <input type="text" class="form-control" style="width: 12em"
-          placeholder="record date" value.bind="ep.record_date">
+        <input type="text" class="form-control" style="width: 15em"
+          placeholder="record date (YYYY-MM-DD)" value.bind="ep.record_date">
         <ul class="error" if.bind="errors.record_date">
           <li repeat.for="err of errors.record_date">${err}</li>
         </ul>
