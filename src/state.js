@@ -37,7 +37,7 @@ export class State {
     this.channel.push(message, args, 10000)
       .receive("ok", happyCb)
       .receive("error", sadCb)
-      .receive("timeout", () => fail("Networking issue..."));
+      .receive("timeout", () => bail("Networking issue..."));
   }
 
   startSocket() {
