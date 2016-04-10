@@ -9,12 +9,11 @@ export class Login {
     this.state    = state;
     this.router   = router;
     this.username = Cookie.get("username") || "";
-    this.password = "dontforget99";
-    // this.password = "";
+    this.password = "";
   }
 
   attached() {
-    this.login();
+    // this.login();
   }
 
   login() {

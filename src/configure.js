@@ -4,8 +4,8 @@ export function configure(aurelia) {
     .developmentLogging()
     .plugin('aurelia-configuration', config => {
       config.setEnvironments({
-        development: ['localhost'],
-        production:  ['techtues.net']
+        development: ['localhost', 'backstagetest.impulsedetroit.net'],
+        production:  ['backstage.impulsedetroit.net']
       });
     });
 

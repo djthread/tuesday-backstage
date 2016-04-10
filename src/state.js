@@ -50,6 +50,7 @@ export class State {
   }
 
   startSocket() {
+    console.log('socketuri: ', this.socketUri);
     var socket = new Socket(this.socketUri, {
       logger: ((kind, msg, data) => { console.log(`${kind}: ${msg}`, data) })
     });

@@ -2,7 +2,7 @@
   "name": "Tuesday",
   "production": {
     "socket": {
-      "endpoint": "//api.techtues.net/socket"
+      "endpoint": "//api.impulsedetroit.net/socket"
     }
   },
   "development": {
