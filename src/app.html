@@ -1,14 +1,11 @@
 <template>
+  <header>
+    <div class="loader" if.bind="router.isNavigating || state.isRequesting">
+      <i class="fa fa-spinner fa-spin fa-2x"></i>
+    </div>
+    <h1>Backstage</h1>
+  </header>
   <div class="main">
-    <h1>
-      <!--
-        Impulse Detroit
-      -->
-      <span class="loader" if.bind="router.isNavigating || state.isRequesting">
-        <i class="fa fa-spinner fa-spin fa-2x"></i>
-      </span>
-    </h1>
-
     <div class="section-secondary">
       <ul class="nav navbar-nav" if.bind="state.channel">
         <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">

@@ -6,7 +6,8 @@ import {Router} from "aurelia-router";
 @inject(Configure, Router)
 export class State {
   constructor(config, router) {
-    this.router    = router
+    console.log('CONSTRUCTING');
+    this.router    = router;
     this.socketUri = config.get("socket.endpoint");
     this.user      = null;
     this.socket    = null;
@@ -29,15 +30,23 @@ export class State {
     var bail = this.bail;
 
     if (!sadCb) {
-      sadCb = (reasons) => bail("Push ("+message+") fail:", reasons);
+      sadCb = (reasons) => {
+        bail("Push ("+message+") fail:", reasons);
+      };
     }
 
     console.log('ok, pushing', message, args);
-    if (!this.channel) return bail("Whoa no channel!");
+
+    if (!this.channel) {  // nasty hack because it works
+      console.log('DANG NO CHANNEL');
+      this.router.navigateToRoute("login");
+      window.location.reload();
+    }
+
     this.channel.push(message, args, 10000)
-      .receive("ok", happyCb)
-      .receive("error", sadCb)
-      .receive("timeout", () => bail("Networking issue..."));
+      .receive("ok", happyCb.bind(this))
+      .receive("error", sadCb.bind(this))
+      .receive("timeout", () => {this.bail("Networking issue...");}.bind(this));
   }
 
   startSocket() {
@@ -62,9 +71,9 @@ export class State {
   login(name, pass, happyCb, sadCb) {
     this.channel = this.socket.channel("admin", {name: name, pass: pass})
 
-    this.channel.join().receive("ignore", sadCb)
-                       .receive("ok",     happyCb)
-                       .receive("error",  sadCb);
+    this.channel.join().receive("ignore", sadCb.bind(this))
+                       .receive("ok",     happyCb.bind(this))
+                       .receive("error",  sadCb.bind(this));
 
     this.channel.onError(e => console.log("something went wrong", e));
     this.channel.onClose(e => console.log("channel closed", e));
@@ -80,9 +89,12 @@ export class State {
 
   getShow(id, cb) {
     this.push("show", {id: id}, (info) => {
-      if (!info) return this.bail("Bad tings");
+      // if (!info) return this.bail("Bad tings");
       this.show = info.show;
+      console.log('GOT SHOW', info.show);
       cb();
+    }.bind(this), () => {
+      console.log('WATTT', arguments);
     }.bind(this));
   }
 
@@ -96,14 +108,26 @@ export class State {
   //   return show;
   // }
 
-  episodeByNum(num) {
-    var ep = null;
-    this.show.episodes.forEach((e) => {
-      if (e.number == num) {
-        ep = e;
+  episodeByNum(id) {
+    var i, ep = null;
+    for (i=0; i<this.show.episodes.length; i++) {
+      if (this.show.episodes[i].id == id) {
+        ep = this.show.episodes[i];
+        break;
       }
-    }.bind(this));
+    };
     return ep;
+  }
+
+  eventById(id) {
+    var i, ev = null;
+    for (i=0; i<this.show.events.length; i++) {
+      if (this.show.events[i].id == id) {
+        ev = this.show.events[i];
+        break;
+      }
+    };
+    return ev;
   }
 
   idBySlug(slug) {
@@ -125,7 +149,7 @@ export class State {
 
   bail(msg, extra) {
     console.log("Bailing", msg, extra);
-    this.router.navigate("login");
+    this.router.navigateToRoute("login");
     if (msg) {
       this.flashMsg("Bailing: "+msg);
     }

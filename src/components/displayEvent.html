@@ -1,0 +1,17 @@
+<template>
+  <require from="./markdown"></require>
+  <div class="event-display">
+    <h4>${event.title}</h4>
+    <p class="date">${event.happens_on}</p>
+    <markdown model.bind="event.description"></markdown>
+    <ul if.bind="event.info.lines.length">
+      <li repeat.for="line of event.info.lines">
+        <div class="time">${line.time}</div>
+        <div class="artist">${line.artist}</div>
+        <div class="genres">${line.genres}</div>
+        <div class="affiliations">${line.affiliations}</div>
+        <markdown model.bind="line.extra"></markdown>
+      </li>
+    </ul>
+  </div>
+</template>

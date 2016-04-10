@@ -1,7 +1,7 @@
 * { box-sizing: border-box; }
 
 .splash { margin: 1em; }
-.loader { font-size: 25%; }
+.loader { font-size: 50%; position: absolute; top: 5; left: 5; }
 
 html, body { height: 100%; }
 
@@ -15,11 +15,14 @@ body {
 .flash { color: orange; }
 .error { margin: 0.2em 0 0.5em 0; font-size: small; color: #fcc; }
 
-h1 { margin: 0.2em; }
+h1 { margin: 0; }
+header { margin: 0.2em; text-align: center; background: rgba(0,0,0,.5);
+  border-bottom: 2px solid #333; padding: .5em; }
 
 form div { padding: 0.2em 0; }
 input, textarea { padding: 0.4em; background-color: #333;
-  border: 1px solid #444; color: #eee; width: 100%; }
+  border: 1px solid #444; color: #eee; width: 100%;
+  font-family: sans-serif; }
 
 .loginform { width: 20em; margin: 0 auto; }
 /* .podcastform textarea { width: 100%; } */
@@ -28,7 +31,7 @@ div.left { width: 30%; float: left; }
 div.right { width: 70%; float: right; padding-left: 1em; }
 
 ul.navbar-nav { list-style-type: none; padding: 0; clear: both; margin: 0; }
-ul.navbar-nav li { width: 50%; padding: 5px; float: left; }
+ul.navbar-nav li { width: 33.333%; padding: 5px; float: left; }
 ul.navbar-nav a { width: 100%; display: block; text-decoration: none;
   padding: 5px; text-align: center; color: #999;
   border: 1px solid rgba(255,255,255,0.2); background-color: rgba(0,0,0,0.33); }
@@ -42,7 +45,16 @@ a { color: #cc9; }
 ul.eplist li { list-style-type: none; margin-bottom: 1em; }
 ul.eplist li div.num { float: left; margin-left: 0; }
 ul.eplist li div { margin-left: 3em; }
-ul.eplist li div.record-date span { color: #aaa; font-size: small; }
+
+li div.date span { color: #aaa; font-size: small; }
+
+.event-line-entry-form ul { padding-left: 0; list-style-type: none; }
+.event-line-entry-form li { background-color: #111; padding: 0.5em; margin-bottom: 0.5em; }
+.event-line-entry-form span { display: block; }
+.event-line-entry-form .remove-widget { text-align: right; }
+.event-line-entry-form .remove-widget a { font-size: small; }
+
+.event-display ul { padding: 0; list-style-type: none; }
 
 footer { clear: both; padding: 20px 40px;
     margin-top: 4em;
