@@ -1,0 +1,33 @@
+<!--
+<template>
+  <ul class="nav navbar-nav">
+    <li repeat.for="ep of episodes" class="${row.isActive ? 'active' : ''}">
+      <a href.bind="row.href" class="${row.config.name}">${row.title}</a>
+    </li>
+  </ul>
+  <ul class="nav navbar-nav navbar-right">
+    <li class="loader" if.bind="router.isNavigating">
+      <i class="fa fa-spinner fa-spin fa-2x"></i>
+    </li>
+  </ul>
+  <router-view></router-view>
+</template>
+cat: list.html: No such file or directory
+-->
+<template>
+  <require from="../components/markdown"></require>
+  <p><a route-href="route.bind: 'createEvent'">Create a New Event</a> &raquo;</p>
+  <ul class="eplist">
+    <li repeat.for="ev of state.show.events">
+      <div class="title">
+        <a route-href="route: event; params.bind: {id: ev.id}">${ev.title}</a>
+      </div>
+      <div class="date">
+        <span>${ev.happens_on}</span>
+      </div>
+      <div class="description">
+        <markdown model="${ev.description}"></markdown>
+      </div>
+    </li>
+  </ul>
+</template>

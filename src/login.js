@@ -13,6 +13,10 @@ export class Login {
     // this.password = "";
   }
 
+  attached() {
+    this.login();
+  }
+
   login() {
     var state = this.state,
         sadCb = () => state.flashMsg("Nope.");
@@ -27,14 +31,7 @@ export class Login {
         state.setShows(stuff.shows);
         state.setUser(stuff.user);
         this.router.navigateToRoute("shows");
-        // if (state.shows.length === 1) {
-        //   state.shows  = state.shows;
-        //   state.showId = state.shows[0].id;
-        //   this.router.navigateToRoute("show", {show: state.shows[0].slug});
-        // } else {
-        //   this.router.navigateToRoute("shows");
-        // }
-      });
+      }.bind(this));
     };
 
     state.login(this.username, this.password, happyCb, sadCb);

@@ -14,8 +14,20 @@ export class Show {
     config.map([
       { route:    ["", "/"],
         name:     "episodes",
-        title:    "Podcast Episodes",
+        title:    "Episodes",
         moduleId: "./show/episodes",
+        nav:      true
+      },
+      { route:    "events",
+        name:     "events",
+        title:    "Events",
+        moduleId: "./show/events",
+        nav:      true
+      },
+      { route:    "info",
+        name:     "info",
+        title:    "Info",
+        moduleId: "./show/info",
         nav:      true
       },
       { route:    "episode/:num",
@@ -24,17 +36,23 @@ export class Show {
         moduleId: "./show/episode",
         nav:      false
       },
+      { route:    "event/:id",
+        name:     "event",
+        title:    "Edit Event",
+        moduleId: "./show/event",
+        nav:      false
+      },
       { route:    "create-episode",
         name:     "createEpisode",
         title:    "Create Episode",
         moduleId: "./show/episode",
         nav:      false
       },
-      { route:    "info",
-        name:     "info",
-        title:    "Info",
-        moduleId: "./show/info",
-        nav:      true
+      { route:    "create-event",
+        name:     "createEvent",
+        title:    "Create Event",
+        moduleId: "./show/event",
+        nav:      false
       }
     ]);
   }
@@ -50,4 +68,5 @@ export class Show {
       });
     }.bind(this));
   }
+
 }
