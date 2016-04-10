@@ -1,2 +1,52 @@
 <template>
+  <require from="../components/markdown"></require>
+  <h2>${state.show.title} Info</h2>
+  <div class="info-form">
+    <form role="form" submit.delegate="submit()">
+
+      <div class="info-section">
+        <div class="left">
+          <textarea value.bind="show.tiny_info" rows="4">
+          </textarea>
+          <ul class="error" if.bind="errors.tiny_info">
+            <li repeat.for="err of errors.tiny_info">${err}</li>
+          </ul>
+        </div>
+        <div class="right">
+          <markdown model.bind="show.tiny_info"></markdown>
+        </div>
+      </div>
+
+      <div class="info-section">
+        <div class="left">
+          <textarea value.bind="show.short_info" rows="7">
+          </textarea>
+          <ul class="error" if.bind="errors.short_info">
+            <li repeat.for="err of errors.short_info">${err}</li>
+          </ul>
+        </div>
+        <div class="right">
+          <markdown model.bind="show.short_info"></markdown>
+        </div>
+      </div>
+
+      <div class="info-section">
+        <div class="left">
+          <textarea value.bind="show.full_info" rows="10">
+          </textarea>
+          <ul class="error" if.bind="errors.full_info">
+            <li repeat.for="err of errors.full_info">${err}</li>
+          </ul>
+        </div>
+        <div class="right">
+          <markdown model.bind="show.full_info"></markdown>
+        </div>
+      </div>
+
+      <div class="info-section">
+        <input type="submit">
+      </div>
+
+    </form>
+  </div>
 </template>

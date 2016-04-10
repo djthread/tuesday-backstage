@@ -56,6 +56,8 @@ li div.date span { color: #aaa; font-size: small; }
 
 .event-display ul { padding: 0; list-style-type: none; }
 
+.info-form .info-section { clear: both; }
+
 footer { clear: both; padding: 20px 40px;
     margin-top: 4em;
     border-top: 2px solid #333;
