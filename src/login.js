@@ -26,11 +26,7 @@ export class Login {
     Cookie.set("username", this.username);
 
     var happyCb = () => {
-      state.push("whoami", {}, (stuff) => {
-        state.setShows(stuff.shows);
-        state.setUser(stuff.user);
-        this.router.navigateToRoute("shows");
-      }.bind(this));
+      this.router.navigateToRoute("shows");
     };
 
     state.login(this.username, this.password, happyCb, sadCb);

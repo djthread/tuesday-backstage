@@ -6,22 +6,21 @@ export class Info {
 
   constructor(state) {
     this.state = state;
-  }
-
-  attached() {
-    console.log('attached show', this.show);
-    this.show = this.state.show;
+    console.log('CONSTRUCTORSTATE', state);
   }
 
   submit() {
+    console.log('SUBMITSTATE', this.state);
     var args, state = this.state;
 
     args = { show: {
-      id:         this.show.id,
-      tiny_info:  this.show.tiny_info,
-      short_info: this.show.short_info,
-      full_info:  this.show.full_info
+      id:         state.show.id,
+      tiny_info:  state.show.tiny_info,
+      short_info: state.show.short_info,
+      full_info:  state.show.full_info
     }};
+
+    console.log('args', args);
 
     state.push("save_info", args, () => {
       console.log("woop", arguments);

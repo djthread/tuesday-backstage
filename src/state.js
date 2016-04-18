@@ -6,7 +6,6 @@ import {Router} from "aurelia-router";
 @inject(Configure, Router)
 export class State {
   constructor(config, router) {
-    console.log('CONSTRUCTING');
     this.router    = router;
     this.socketUri = config.get("socket.endpoint");
     this.user      = null;
@@ -50,7 +49,6 @@ export class State {
   }
 
   startSocket() {
-    console.log('socketuri: ', this.socketUri);
     var socket = new Socket(this.socketUri, {
       logger: ((kind, msg, data) => { console.log(`${kind}: ${msg}`, data) })
     });
@@ -70,10 +68,19 @@ export class State {
   }
 
   login(name, pass, happyCb, sadCb) {
+    var cb = () => {
+      this.push("whoami", {}, (stuff) => {
+        console.log("stuff", stuff);
+        this.setShows(stuff.shows);
+        this.setUser(stuff.user);
+        happyCb();
+      }.bind(this));
+    }.bind(this);
+
     this.channel = this.socket.channel("admin", {name: name, pass: pass})
 
     this.channel.join().receive("ignore", sadCb.bind(this))
-                       .receive("ok",     happyCb.bind(this))
+                       .receive("ok",     cb.bind(this))
                        .receive("error",  sadCb.bind(this));
 
     this.channel.onError(e => console.log("something went wrong", e));
@@ -89,10 +96,10 @@ export class State {
   }
 
   getShow(id, cb) {
-    this.push("show", {id: id}, (info) => {
+    this.push("show", {id: id}, (show) => {
       // if (!info) return this.bail("Bad tings");
-      this.show = info.show;
-      console.log('GOT SHOW', info.show);
+      this.show = show;
+      console.log('GOT SHOW', show);
       cb();
     }.bind(this), () => {
       console.log('WATTT', arguments);
@@ -109,10 +116,10 @@ export class State {
   //   return show;
   // }
 
-  episodeByNum(id) {
+  episodeByNum(number) {
     var i, ep = null;
     for (i=0; i<this.show.episodes.length; i++) {
-      if (this.show.episodes[i].id == id) {
+      if (this.show.episodes[i].number == number) {
         ep = this.show.episodes[i];
         break;
       }

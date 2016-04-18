@@ -42,9 +42,11 @@ export class Episode {
   }
 
   activate(params) {
+    console.log('activate', params);
     if (params.num) {
       return new Promise((accept, reject) => {
         var episode = this.state.episodeByNum(params.num);
+        console.log('episode', episode);
         if (!episode) return reject("Ep num ("+params.num+") doesn't exist!");
         this.ep = new Ep(episode);
         console.log('EPPP', this.ep);
@@ -52,6 +54,7 @@ export class Episode {
       }.bind(this));
     } else {
       this.ep = new Ep({show_id: this.state.show.id});
+      console.log('wattt', this.ep);
     }
   }
 
