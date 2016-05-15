@@ -16,7 +16,18 @@ export class Episode {
     this.tags    = null;
     this.tagsmsg = null;
     this.timeout = null;
-    this.tagkeys = [];
+
+    this.tagkeys = ["title", "artist", "album",
+                    "genre", "recording_date", "time"];
+
+    this.taglabels = {
+      title:          "Title",
+      artist:         "Artist",
+      album:          "Album",
+      genre:          "Genre",
+      recording_date: "Rec. Date",
+      time:           "Length"
+    };
 
     this.bindingEngine = bindingEngine;
 
@@ -95,11 +106,9 @@ export class Episode {
       if (tags.msg) {
         this.tagsmsg = tags.msg;
         this.tags    = null;
-        this.tagkeys = [];
       } else {
         this.tagsmsg = null;
         this.tags    = tags;
-        this.tagkeys = Object.keys(tags);
       }
       this.loading = false;
     }.bind(this));

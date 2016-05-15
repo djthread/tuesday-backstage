@@ -1,6 +1,6 @@
 <template>
   <require from="../components/markdown"></require>
-  <h2>Episode ${ep.number}</h2>
+  <h2>Episode ${ep.number}, ${state.show.name}</h2>
   <div class="left episodeform">
     <form role="form" submit.delegate="submit()">
       <div>
@@ -45,13 +45,19 @@
       <i class="fa fa-spinner fa-spin fa-2x"></i>
     </div>
     <markdown model.bind="ep.description"></markdown>
-    <p class="mp3tagsmsg" if.bind="tagsmsg">${tagsmsg}</p>
+    <div class="mp3tags" if.bind="tagsmsg">
+      </p>${tagsmsg}</p>
+    </div>
     <div class="mp3tags" if.bind="tags">
+      <h3>Current MP3 Metadata (ID3 ${tags.id3v})</h3>
+      <p>${tags.filename}</p>
       <li repeat.for="key of tagkeys">
-        <span class="key">${key}</span>
+        <span class="key">${taglabels[key]}</span>
         <span if.bind="tags[key]">${tags[key]}</span>
         <span if.bind="!tags[key]"><em>empty</em></span>
       </li>
+      <p><strong>${tags.kbps}</strong> kbps, <strong>${tags.hz}</strong> Hz, <strong>${tags.size_mb}</strong> Mb, ${tags.stereo} ${tags.codec}</p>
+      <p>When you save this episode, the metadata on the MP3 file will be written.</p>
     </div>
   </div>
   <p class="clearer">&nbsp;</p>
