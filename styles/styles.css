@@ -54,6 +54,9 @@ li div.date span { color: #aaa; font-size: small; }
 .event-line-entry-form .remove-widget { text-align: right; }
 .event-line-entry-form .remove-widget a { font-size: small; }
 
+.mp3tags { background-color: #111; padding: 0.2em 1em; list-style-type: none; }
+.mp3tags span.key { font-weight: bold; width: 7em; float: left; display: block; }
+
 .event-display ul { padding: 0; list-style-type: none; }
 
 .info-form .info-section { clear: both; }

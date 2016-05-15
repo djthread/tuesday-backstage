@@ -41,7 +41,18 @@
     </form>
   </div>
   <div class="right">
+    <div class="loader" if.bind="loading">
+      <i class="fa fa-spinner fa-spin fa-2x"></i>
+    </div>
     <markdown model.bind="ep.description"></markdown>
+    <p class="mp3tagsmsg" if.bind="tagsmsg">${tagsmsg}</p>
+    <div class="mp3tags" if.bind="tags">
+      <li repeat.for="key of tagkeys">
+        <span class="key">${key}</span>
+        <span if.bind="tags[key]">${tags[key]}</span>
+        <span if.bind="!tags[key]"><em>empty</em></span>
+      </li>
+    </div>
   </div>
   <p class="clearer">&nbsp;</p>
 </template>

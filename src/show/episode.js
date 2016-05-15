@@ -1,17 +1,24 @@
-import {inject} from "aurelia-framework";
+import {inject, BindingEngine} from "aurelia-framework";
 import {Router} from "aurelia-router";
 import {State} from "../state";
 import {Ep} from "../models/ep";
 
 // @inject(State, Router)
 
-@inject(State, Router)
+@inject(State, Router, BindingEngine)
 export class Episode {
 
-  constructor(state, router) {
-    this.state  = state;
-    this.router = router;
-    this.errors = {};
+  constructor(state, router, bindingEngine) {
+    this.state   = state;
+    this.router  = router;
+    this.errors  = {};
+    this.loading = false;
+    this.tags    = null;
+    this.tagsmsg = null;
+    this.timeout = null;
+    this.tagkeys = [];
+
+    this.bindingEngine = bindingEngine;
 
     // this.titleData = { name: 'title', prettyName: 'Title', maxLength: 50 };
     // this.authorData = { name: 'author', prettyName: 'Author', maxLength: 50 };
@@ -43,6 +50,7 @@ export class Episode {
 
   activate(params) {
     console.log('activate', params);
+
     if (params.num) {
       return new Promise((accept, reject) => {
         var episode = this.state.episodeByNum(params.num);
@@ -50,6 +58,8 @@ export class Episode {
         if (!episode) return reject("Ep num ("+params.num+") doesn't exist!");
         this.ep = new Ep(episode);
         console.log('EPPP', this.ep);
+        if (this.ep.filename) this.refreshTags();
+        this.bindFilenameChange();
         accept();
       }.bind(this));
     } else {
@@ -73,6 +83,35 @@ export class Episode {
       console.log('uhh', arguments);
       console.log('ERRORS', this.errors);
     }.bind(this));
+  }
+
+  refreshTags() {
+    var args = {id: this.state.show.id, filename: this.ep.filename};
+    console.log('ARGSSS', args);
+
+    this.loading = true;
+    this.state.push("read_tags", args, (tags) => {
+      console.log('tags', tags);
+      if (tags.msg) {
+        this.tagsmsg = tags.msg;
+        this.tags    = null;
+        this.tagkeys = [];
+      } else {
+        this.tagsmsg = null;
+        this.tags    = tags;
+        this.tagkeys = Object.keys(tags);
+      }
+      this.loading = false;
+    }.bind(this));
+  }
+
+  bindFilenameChange() {
+    this.bindingEngine.propertyObserver(this.ep, "filename").subscribe(this.fnChange.bind(this));
+  }
+
+  fnChange() {
+    if (this.timeout) clearInterval(this.timeout);
+    this.timeout = setTimeout(this.refreshTags.bind(this), 1000);
   }
 }
 //     }.bind(this), (a, b) => {
