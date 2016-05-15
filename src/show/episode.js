@@ -9,16 +9,14 @@ import {Ep} from "../models/ep";
 export class Episode {
 
   constructor(state, router, bindingEngine) {
-    this.state   = state;
-    this.router  = router;
-    this.errors  = {};
-    this.loading = false;
-    this.tags    = null;
-    this.tagsmsg = null;
-    this.timeout = null;
-
-    this.tagkeys = ["title", "artist", "album",
-                    "genre", "recording_date", "time"];
+    this.state         = state;
+    this.router        = router;
+    this.bindingEngine = bindingEngine;
+    this.errors        = {};
+    this.loading       = false;
+    this.tags          = null;
+    this.tagsmsg       = null;
+    this.timeout       = null;
 
     this.taglabels = {
       title:          "Title",
@@ -29,7 +27,7 @@ export class Episode {
       time:           "Length"
     };
 
-    this.bindingEngine = bindingEngine;
+    this.tagkeys = Object.keys(this.taglabels);
 
     // this.titleData = { name: 'title', prettyName: 'Title', maxLength: 50 };
     // this.authorData = { name: 'author', prettyName: 'Author', maxLength: 50 };
@@ -65,7 +63,6 @@ export class Episode {
     if (params.num) {
       return new Promise((accept, reject) => {
         var episode = this.state.episodeByNum(params.num);
-        console.log('episode', episode);
         if (!episode) return reject("Ep num ("+params.num+") doesn't exist!");
         this.ep = new Ep(episode);
         console.log('EPPP', this.ep);
@@ -74,9 +71,38 @@ export class Episode {
         accept();
       }.bind(this));
     } else {
-      this.ep = new Ep({show_id: this.state.show.id});
-      console.log('wattt', this.ep);
+      var number, filename;
+      [number, filename] = this.getNextNumberAndFilename();
+      this.ep = new Ep({
+        show_id:  this.state.show.id,
+        number:   number,
+        filename: filename
+      });
+      console.log('EPP', this.ep);
     }
+  }
+
+  getNextNumberAndFilename() {
+    var filename, nextNum = 1, max = 0;
+
+    var padToThree = (number) => {
+      if (number <= 999) { number = ("00" + number).slice(-3); }
+      return number;
+    }
+
+    this.state.show.episodes.forEach((ep) => {
+      if (ep.number > max) {
+        max      = ep.number;
+        filename = ep.filename;
+      }
+    });
+
+    nextNum = max + 1;
+
+    return [
+      nextNum,
+      filename.replace(/\d+/, padToThree(nextNum))
+    ]
   }
 
   submit() {
@@ -84,7 +110,6 @@ export class Episode {
         state = this.state;
 
     state.push("save_episode", args, () => {
-      console.log("woop", arguments);
       state.getShow(state.show.id, () => {
         state.flashMsg("Episode saved!");
         this.router.navigateToRoute("episodes");
