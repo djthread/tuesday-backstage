@@ -5,7 +5,8 @@ export function configure(aurelia) {
     .plugin('aurelia-configuration', config => {
       config.setEnvironments({
         development: ['localhost', 'backstagetest.impulsedetroit.net'],
-        production:  ['backstage.impulsedetroit.net']
+        production:  ['backstage.impulsedetroit.net'],
+        test:        ['backstagetest.impulsedetroit.net']
       });
     });
 

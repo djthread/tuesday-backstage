@@ -1,0 +1,32 @@
+<template>
+  <h2>${state.show.title} Social Panel</h2>
+  <div class="social-form">
+
+    <form role="form" submit.delegate="submit()">
+
+      <p>To stream the video,
+      <a href="https://www.facebook.com/impulsedetroit/publishing_tools/?section=VIDEOS">click this link</a>, click the grey "Live" button, then copy/paste the "single field" version of the stream URL into the the field below.</p>
+
+      <p>Your post's Facebook rtmp url:</p>
+
+      <div>
+        <input value.bind="social.fb_rtmp_url">
+      </div>
+
+      <div>
+        <input type="submit">
+      </div>
+
+    </form>
+
+    <div class="social-result">
+      <p if.bind="success === true" class="good">
+        If you're streaming, you should see the preview on Facebook.
+      </p>
+      <p if.bind="success === false" class="bad">
+        Something went wrong. Ask Adam.
+      </p>
+    </div>
+
+  </div>
+</template>

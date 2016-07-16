@@ -6,11 +6,9 @@ export class Info {
 
   constructor(state) {
     this.state = state;
-    console.log('CONSTRUCTORSTATE', state);
   }
 
   submit() {
-    console.log('SUBMITSTATE', this.state);
     var args, state = this.state;
 
     args = { show: {
@@ -20,18 +18,13 @@ export class Info {
       full_info:  state.show.full_info
     }};
 
-    console.log('args', args);
-
     state.push("save_info", args, () => {
-      console.log("woop", arguments);
       state.getShow(state.show.id, () => {
         state.flashMsg("Info saved!");
         // this.router.navigateToRoute("episodes");
       });
     }.bind(this), (ret) => {
       this.errors = ret.errors;
-      console.log('uhh', arguments);
-      console.log('ERRORS', this.errors);
     }.bind(this));
   }
 }

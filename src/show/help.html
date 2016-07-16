@@ -1,0 +1,67 @@
+<template>
+  <require from="../components/markdown"></require>
+  <markdown>
+  These instructions will attempt to help you through the processes involved in hosting a show on the network.
+
+  The typical show format is streaming video for the live show, then uploading an MP3 as the podcast episode afterwards.
+
+  # Live Streaming
+
+  Before you go to far, you should make sure that you've given me your IP address. I'll need to whitelist it on the server so you'll be allowed to stream. If it changes often, we may have to look at new solutions, but hopefully your IP address will remain the same for long periods of time.
+
+  Streaming your video for the live show is done via [RTMP](https://en.wikipedia.org/wiki/Real_Time_Messaging_Protocol), and I recommend [OBS Studio](https://obsproject.com/) (for Mac/Windows/Linux) to stream your video, live. Be sure and download OBS Studio and not the older version that is also offered!
+
+  Once you've installed OBS Studio, you'll want to tell it where to send your live stream. Open up the `Settings` and visit the `Stream` section. Fill out the following:
+
+  * URL: `rtmp://impulsedetroit.net/live`
+  * Stream Key: `techno`
+
+  You may want to fiddle with the quality settings, but the defaults seem to be high quality and work well for me.
+
+  Next, you'll need to set up your webcam and scale it to cover the video area. I noticed that I had to expand it larger than the area, thus cropping it, in order to cover the whole area.
+
+  For audio, you should have a decent audio capture device connected to your output. Add it to OBS and do a sound check to ensure that a full signal doesn't clip.
+
+  With OBS configured, you should be able to click the `Start Streaming` button and get the show on the road!
+
+  Keep in mind that people will be able to tune into the MP3-only stream as well at this point, since there is a separate process on the server that makes this possible.
+
+  When you're done with the show, simply disconnect.
+
+  # Preparing a Podcast Episode
+
+  I recommend recording the show with [Butt](http://butt.sourceforge.net/), but feel free to use whatever you like. I also recommend recording the show to disk in WAV format.
+
+  ### Mastering the Show
+
+  Open up the recording inside [Audacity](http://www.audacityteam.org/) and take the following steps:
+
+  * Trim any silences that you don't intend to publish.
+  * (Sometimes a little editing, fading in, or fading out is necessary.)
+  * `Effect` &#10143; `Normalize...` and accept the defaults.
+  * `Effect` &#10143; `Compressor...` and, again, accept the defaults.
+  * `File` &#10143; `Export Audio...` and export an MP3 somewhere. I use 320 kbps.
+
+  You should name the file something short, consistent, and following a similar pattern to the following examples. My first show was `techtues-001.mp3`, and Larry & Alex's was `wobblehead-001.mp3`.
+
+  Note that we do not need to worry about the metadata (id3 tags) on the file! This is because the backstage tool will tag the file when you publish it to the website, in a later step.
+
+  ### Uploading the Show
+
+  The next step is to upload the MP3 to the server. To do this, send your web browser to
+
+  [https://cloud.impulsedetroit.net/](https://cloud.impulsedetroit.net/)
+
+  and log in. Navigate into the existing folder `<your_show_name>-episodes` and drag the MP3 in.
+
+  ### Publishing the Show!
+
+  Once the upload has completed, the next step is to add it to the site!
+
+  Use your given username and password to log into the [backstage](https://backstage.impulsedetroit.net/). Navigate to the Episodes section and fill out the information, taking certain care to fill out the filename, exactly as it is, including the extension. When you save the episode and open it again for edit, you should be able to see the metadata that was added to the file.
+
+  And there you have it, the episode should be listed on the site! Let me know if you have any questions or trouble at any step.
+
+  I imagine you may have ideas on ways to enhance this info, so please do share your thoughts!
+  </markdown>
+</template>
