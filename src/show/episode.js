@@ -83,7 +83,7 @@ export class Episode {
   }
 
   getNextNumberAndFilename() {
-    var filename, nextNum = 1, max = 0;
+    var filename = '', nextNum = 1, max = 0;
 
     var padToThree = (number) => {
       if (number <= 999) { number = ("00" + number).slice(-3); }
