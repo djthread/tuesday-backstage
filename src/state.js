@@ -7,7 +7,7 @@ import {Router} from "aurelia-router";
 export class State {
   constructor(config, router) {
     this.router    = router;
-    this.socketUri = config.get("socket.endpoint");
+    this.socketUri = config.get("apiroot") + "/socket";
     this.user      = null;
     this.socket    = null;
     this.channel   = null;

@@ -1,18 +1,12 @@
 {
   "name": "Tuesday",
   "production": {
-    "socket": {
-      "endpoint": "//api.impulsedetroit.net/socket"
-    }
+    "apiroot": "//api.impulsedetroit.net"
   },
   "test": {
-    "socket": {
-      "endpoint": "//apitest.impulsedetroit.net/socket"
-    }
+    "apiroot": "//apitest.impulsedetroit.net"
   },
   "development": {
-    "socket": {
-      "endpoint": "//localhost:4000/socket"
-    }
+    "apiroot": "//localhost:4000"
   }
 }
