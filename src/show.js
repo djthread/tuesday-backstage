@@ -30,10 +30,10 @@ export class Show {
         moduleId: "./show/info",
         nav:      true
       },
-      { route:    "social",
-        name:     "social",
-        title:    "Social",
-        moduleId: "./show/social",
+      { route:    "stream",
+        name:     "stream",
+        title:    "Stream",
+        moduleId: "./show/stream",
         nav:      true
       },
       { route:    "help",

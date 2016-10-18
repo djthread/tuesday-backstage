@@ -4,14 +4,14 @@ import {inject} from "aurelia-framework";
 import {State} from "../state";
 
 @inject(State, Configure, HttpClient)
-export class Social {
+export class Stream {
 
   constructor(state, config, http) {
     this.config = config;
     this.state = state;
     this.success = null;
 
-    this.social = {
+    this.stream = {
       fb_rtmp_uri: "",
       ip:          ""
     };
@@ -27,7 +27,7 @@ export class Social {
       this.http.fetch(this.config.get('apiroot') + '/api/myip')
       .then(response => response.json())
       .then(data => {
-        this.social.ip = data.ip;
+        this.stream.ip = data.ip;
         accept();
       })
     }.bind(this));
@@ -37,8 +37,8 @@ export class Social {
     this.success = null;
 
     this.state.push('stream_start', {
-      url: this.social.fb_rtmp_url,
-      ip:  this.social.ip
+      url: this.stream.fb_rtmp_url,
+      ip:  this.stream.ip
     }, (res) => {
       this.success = res.status === "ok";
     }.bind(this));
