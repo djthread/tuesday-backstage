@@ -24,17 +24,13 @@ export class Ev {
     this.id          = data.id;
     this.lines       = data.performances;
 
-    if (!this.info) {
-      this.lines = {};
+    if (!this.lines) {
+      this.lines = this.defaultPerformances();
     }
 
-    if (!this.info.lines) {
-      this.lines = [];
-    }
-
-    if (data.info_json) {
-      this.info = JSON.parse(data.info_json);
-    }
+    // if (data.info_json) {
+    //   this.info = JSON.parse(data.info_json);
+    // }
   }
 
   addEmptyLine() {
