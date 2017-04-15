@@ -2,7 +2,7 @@ export class Ev {
   title = "";
   happens_on = "";
   description = "";
-  info = this.defaultInfo();
+  info = this.defaultPerformances();
   show_id = null;
 
   constructor(data) {
@@ -11,7 +11,7 @@ export class Ev {
     } else if (Number.isInteger(data)) {
       this.setProperties({
         show_id: data,
-        info:    this.defaultInfo()
+        performances: this.defaultPerformances()
       });
     }
   }
@@ -22,7 +22,15 @@ export class Ev {
     this.description = data.description;
     this.show_id     = data.show_id;
     this.id          = data.id;
-    this.info        = data.info;
+    this.lines       = data.performances;
+
+    if (!this.info) {
+      this.lines = {};
+    }
+
+    if (!this.info.lines) {
+      this.lines = [];
+    }
 
     if (data.info_json) {
       this.info = JSON.parse(data.info_json);
@@ -30,16 +38,16 @@ export class Ev {
   }
 
   addEmptyLine() {
-    this.info.lines.push(this.emptyLine());
+    this.lines.push(this.emptyPerformance());
   }
 
-  defaultInfo() {
+  defaultPerformances() {
     return {
-      lines: [ this.emptyLine() ]
+      lines: [ this.emptyPerformance() ]
     };
   }
 
-  emptyLine() {
+  emptyPerformance() {
     return {
       time:         "",
       artist:       "",
@@ -50,7 +58,7 @@ export class Ev {
   }
 
   lastLineIsCompletelyEmpty() {
-    var lines = this.info.lines,
+    var lines = this.lines,
         last  = lines[lines.length - 1];
 
     return this.isEmpty(last);
@@ -72,7 +80,7 @@ export class Ev {
       description: this.description,
       show_id:     this.show_id,
       info_json:   JSON.stringify({
-        lines: this.info.lines.filter((line) => {
+        lines: this.lines.filter((line) => {
           return !this.isEmpty(line);
         }.bind(this))
       })

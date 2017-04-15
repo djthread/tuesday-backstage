@@ -64,7 +64,7 @@ export class Episode {
   }
 
   removeItem(idx) {
-    this.ev.info.lines.splice(idx, 1);
+    this.ev.lines.splice(idx, 1);
   }
 
   submit() {
