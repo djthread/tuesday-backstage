@@ -22,15 +22,32 @@ export class Ev {
     this.description = data.description;
     this.show_id     = data.show_id;
     this.id          = data.id;
-    this.lines       = data.performances;
 
-    if (!this.lines) {
-      this.lines = this.defaultPerformances();
-    }
+    // if (!this.lines) {
+    //   this.lines = this.defaultPerformances();
+    // }
 
     // if (data.info_json) {
     //   this.info = JSON.parse(data.info_json);
     // }
+
+    if (data.performances && data.performances.lines) {
+        this.lines = data.performances.lines;
+    } else {
+        this.lines = data.performances;
+    }
+
+    // if (!this.info) {
+    //   this.info = {};
+    // }
+
+    // if (!this.info.lines) {
+    //   this.info.lines = [];
+    // }
+
+    if (data.info_json) {
+      this.lines = JSON.parse(data.info_json).lines;
+    }
   }
 
   addEmptyLine() {
