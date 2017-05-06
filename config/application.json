@@ -1,12 +1,12 @@
 {
   "name": "Tuesday",
   "production": {
-    "apiroot": "//api.impulsedetroit.net"
+    "apiroot": "//impulsedetroit.net"
   },
   "test": {
     "apiroot": "//apitest.impulsedetroit.net"
   },
   "development": {
-    "apiroot": "//localhost:4091"
+    "apiroot": "//impulsedetroit.net"
   }
 }
