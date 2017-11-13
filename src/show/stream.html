@@ -5,13 +5,16 @@
     <form role="form" submit.delegate="submit()">
 
       <p>To stream the video on Facebook,
-      <a href="https://www.facebook.com/impulsedetroit/publishing_tools/?section=VIDEOS">click this link</a>, click the grey "Live" button, then copy/paste the "single field" version of the stream URL into the the field below.</p>
+      <a target="_blank"
+        href="https://www.facebook.com/impulsedetroit/publishing_tools/?section=VIDEOS">click this link</a>,
+      click the grey "Live" button, then copy/paste the "single field" version of the stream URL into the the field below.
+      </p>
 
       <p>Only after you've pasted the URL and clicked the button, begin your video stream. Next, click the "Preview" button and set up the live post!</p>
 
       <p>If FB streaming is not desired, leave the field empty. You must submit this form with your ip address for streaming to work, though.</p>
 
-      <p>Your post's Facebook rtmp url:</p>
+      <p>Paste the two parts from FB right together here:</p>
 
       <div>
         <input value.bind="stream.fb_rtmp_url">
